@@ -13,13 +13,11 @@
             <div class="boxNew1-body">
                 <div class="row">
                     
-                     
 
                 <div class="col-sm-3">
                    <div class="ColorBBB">بسته</div>
                     <asp:DropDownList ID="ddl_req" runat="server" CssClass="dropdown"></asp:DropDownList>
                   </div>
-
 
 
                  <div class="col-sm-3">
@@ -36,7 +34,21 @@
                     <asp:Button ID="btn" runat="server" BackColor="#00ff00" CssClass="btn btn-success"  OnClick="btn_Click" Text="ذخیره سازی" />
                 </div>
 
-                <div id="div_error" runat="server"></div>
+                 <div style="text-align: center;">
+                <asp:GridView ID="GridView1" runat="server" CssClass="table table-bordered" GridLines="None" AutoGenerateColumns="false"
+                    OnRowCommand="GridView1_OnRowCommand">
+                    <Columns>
+                        <asp:BoundField ItemStyle-Width="550px" DataField="id_b" HeaderText="عنوان" />
+                        <asp:BoundField ItemStyle-Width="550px" DataField="id_org" HeaderText=" عنوان 2 " />
+                        <asp:TemplateField ShowHeader="False">
+                            <ItemTemplate>
+                                <asp:Button ID="Button1" runat="server"  CausesValidation="false" CommandName="del"
+                                    Text="حذف" CssClass="btn btn btn-danger" CommandArgument='<%# Eval("id_b") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </div>
 
             </div>
         </div>

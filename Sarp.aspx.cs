@@ -22,6 +22,12 @@ public partial class Sarp : System.Web.UI.Page
         {
             con.FillCheckBoxList(chk_req, "select id,value  from tbl_BulidReq");
             con.FillDropdownList(ddl_req, "select id,value from tbl_bastebandi");
+            SqlDataAdapter ad = new SqlDataAdapter("select * from tbl_AutoPlaceCare", con.con());
+            DataSet ds = new DataSet();
+            ad.Fill(ds, "tbl_AutoPlaceCare");
+            GridView1.DataSource = ds;
+            GridView1.DataMember = "tbl_AutoPlaceCare";
+            GridView1.DataBind();
         }
     }
 
@@ -40,7 +46,6 @@ public partial class Sarp : System.Web.UI.Page
                 con.setcommandInt(0, ddl_req.ID);
                 con.setcommandInt(1, chk_req.Items[i].Text);
                 con.addcommand();
-               
                 
             }
             con.close();
@@ -55,4 +60,30 @@ public partial class Sarp : System.Web.UI.Page
        ;
     }
 
+
+
+
+    protected void GridView1_OnRowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "del")
+        {
+            int id = Convert.ToInt32(e.CommandArgument);
+            con.open();
+            con.cammand();
+            con.commandtext("delete from tbl_AutoPlaceCare where id_b=@0");
+            con.setcommandDecimal(0, id.ToString());
+            con.addcommand();
+            con.close();
+            Response.Redirect("Sarp.aspx");
+
+        }
+
     }
+
+
+
+
+
+
+
+}
